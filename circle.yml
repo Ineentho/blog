@@ -1,0 +1,15 @@
+test:
+  override:
+    - npm run build
+deployment:
+  master:
+    branch: master
+    commands:
+      - cd build
+      - git init
+      - git config user.name "Circle CI"
+      - git config user.email hk.henrik+circle@gmail.com
+      - git remote add origin git@github.com:Ineentho/blog.git
+      - git add -A
+      - git commit -m "CI Build"
+      - git push -u origin gh-pages -f
