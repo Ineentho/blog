@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 cd build
+echo "blog.ineentho.com" > CNAME
 git init
 git config user.name "Circle CI"
 git config user.email hk.henrik+circle@gmail.com
