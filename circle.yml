@@ -5,7 +5,7 @@ deployment:
   master:
     branch: master
     commands:
-      - rm -r .git
+      - rm -rf .git
       - cd build
       - git init
       - git config user.name "Circle CI"
