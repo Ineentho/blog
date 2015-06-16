@@ -1,7 +1,10 @@
+doctype html
 html
     head
         block title
+        link(rel='stylesheet', href='/static/site.css')
     body
         block content
         if watch
             script(src='http://localhost:35729/livereload.js')
+        script(src='/static/site.js')

@@ -4,6 +4,13 @@ block title
     title=title
 
 block content
-    | abc
-    h1=title
-    p=description
+    | Page #{pagination.num} of #{pagination.pages.length}
+    br
+    if pagination.next
+        a(href='/' + pagination.next.path) << Older
+    if pagination.previous
+        a(href='/' + pagination.previous.path) >> Newer
+    for post in pagination.files
+        //| post
+        h1=post.title
+        p=post.snippet
