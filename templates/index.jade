@@ -7,10 +7,11 @@ block content
     | Page #{pagination.num} of #{pagination.pages.length}
     br
     if pagination.next
-        a(href='/' + pagination.next.path) << Older
+        a(href=pagination.next.url) << Older
     if pagination.previous
-        a(href='/' + pagination.previous.path) >> Newer
+        a(href=pagination.previous.url) >> Newer
     for post in pagination.files
         //| post
-        h1=post.title
+        a(href=post.url)
+            h1=post.title
         p=post.snippet

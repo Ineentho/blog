@@ -15,6 +15,32 @@ var Metalsmith  = require('metalsmith'),
 
 var watchEnabled = process.argv.length > 2 && process.argv[2] === 'watch';
 
+function addUrl(files, metalsmith, done) {
+
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+
+    function bestUrl(file) {
+        var url = '/';
+        if (endsWith(file, 'index.html')) {
+            url += file.substr(0, file.length - 'index.html'.length);
+        } else {
+            url += file;
+        }
+        url = url.split('\\').join('/');
+        return url;
+    }
+
+    for (var file in files) {
+        if (files.hasOwnProperty(file)) {
+            files[file].url = bestUrl(file);
+        }
+    }
+
+    done();
+}
+
 var metalsmith = Metalsmith(__dirname)
     .use(collections({
         posts: {
@@ -43,6 +69,7 @@ var metalsmith = Metalsmith(__dirname)
         maxLength: 250,
         suffix: '...'
     }))
+    .use(addUrl)
     .use(templates('jade'))
     .use(stylus({
         nib: true
@@ -51,7 +78,6 @@ var metalsmith = Metalsmith(__dirname)
     .use(babel({
         compact: true
     }));
-
 
 if (watchEnabled) {
     metalsmith = metalsmith
